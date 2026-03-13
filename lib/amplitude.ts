@@ -129,25 +129,24 @@ export function initAmplitude() {
 
   // 자동 클릭 추적을 위한 이벤트 리스너 추가
   if (typeof window !== 'undefined') {
-    // 페이지 로드 시 모든 버튼/링크 텍스트를 수집하고 배치 번역
+    // 초기 번역 완료 후 MutationObserver 등록 (중복 호출 방지)
     const initializeTranslations = async () => {
       const allTexts = collectAllTexts();
       await batchTranslateTexts(allTexts);
+
+      // 동적으로 추가되는 요소를 감지하기 위한 MutationObserver
+      const observer = new MutationObserver(() => {
+        const allTexts = collectAllTexts();
+        batchTranslateTexts(allTexts); // 새로운 텍스트만 번역됨 (캐시 확인)
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
     };
 
-    // 초기 번역 실행
     initializeTranslations();
-
-    // 동적으로 추가되는 요소를 감지하기 위한 MutationObserver (선택사항)
-    const observer = new MutationObserver(() => {
-      const allTexts = collectAllTexts();
-      batchTranslateTexts(allTexts); // 새로운 텍스트만 번역됨 (캐시 확인)
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
 
     // 클릭 이벤트 리스너 (캐시에서 동기적으로 가져오기)
     document.addEventListener('click', (event) => {
