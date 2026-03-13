@@ -98,9 +98,6 @@ const PricingPage = () => {
                 className="text-gray-600 hover:text-gray-900 px-4 py-2 transition-colors cursor-pointer"
                 onClick={() => console.log('Login clicked')}
                 aria-label="로그인"
-                data-button-type="login"
-                data-location="navbar"
-                data-section="header"
               >
                 로그인
               </button>
@@ -109,9 +106,6 @@ const PricingPage = () => {
                 className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors cursor-pointer"
                 onClick={() => console.log('Sign up clicked')}
                 aria-label="회원가입"
-                data-button-type="signup"
-                data-location="navbar"
-                data-section="header"
               >
                 회원가입
               </button>
@@ -140,9 +134,6 @@ const PricingPage = () => {
               className="relative inline-flex h-8 w-14 items-center rounded-full bg-white/20 hover:bg-white/30 transition-colors cursor-pointer"
               aria-label={`${isYearly ? '월간' : '연간'} 결제로 전환`}
               aria-pressed={isYearly}
-              data-button-type="billing_toggle"
-              data-location="hero_section"
-              data-section="pricing_toggle"
             >
               <span
                 className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
@@ -186,13 +177,10 @@ const PricingPage = () => {
                 }`}
                 onClick={() => console.log(`${plan.name} 플랜 클릭됨`)}
                 aria-label={`${plan.name} 플랜 선택`}
-                data-button-type="plan_selection"
                 data-plan-name={plan.name}
                 data-plan-price={plan.price}
                 data-billing-period={isYearly ? 'yearly' : 'monthly'}
                 data-plan-tier={plan.featured ? 'featured' : 'standard'}
-                data-location="pricing_cards"
-                data-section="plan_selection"
               >
                 {plan.buttonText}
               </button>
@@ -242,10 +230,7 @@ const PricingPage = () => {
               className="bg-white text-indigo-600 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors cursor-pointer"
               onClick={() => console.log('무료 체험 시작 클릭됨')}
               aria-label="무료 체험 시작"
-              data-button-type="cta_primary"
               data-action="free_trial"
-              data-location="cta_section"
-              data-section="conversion"
             >
               무료 체험 시작
             </button>
@@ -254,10 +239,7 @@ const PricingPage = () => {
               className="border-2 border-white text-white px-8 py-3 rounded-md font-semibold hover:bg-white/10 transition-colors cursor-pointer"
               onClick={() => console.log('영업팀 문의 클릭됨')}
               aria-label="영업팀에 문의하기"
-              data-button-type="cta_secondary"
               data-action="contact_sales"
-              data-location="cta_section"
-              data-section="conversion"
             >
               영업팀 문의
             </button>
