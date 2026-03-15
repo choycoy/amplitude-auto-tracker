@@ -1,5 +1,6 @@
 import * as amplitude from "@amplitude/analytics-browser";
 import eventNames from "./event-names.json";
+import { AMPLITUDE_TRACK_EVENT } from "./constants";
 
 const eventMap: Record<string, string> = eventNames;
 
@@ -177,4 +178,12 @@ export function handleTrackEvent(
     ...customFields,
     event_display_name: String(displayName || ""),
   });
+
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent(AMPLITUDE_TRACK_EVENT, {
+        detail: { name: logName, displayName, props: customFields },
+      })
+    );
+  }
 }
