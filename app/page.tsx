@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { initAmplitude } from "../lib/amplitude";
+import { initAmplitude } from "amplitude-auto-track";
 import { useAmplitudeEventLog } from "./hooks/useAmplitudeEventLog";
 import { FeaturesSection, EventLogPanel, ActionButtons } from "./components/ui";
 
