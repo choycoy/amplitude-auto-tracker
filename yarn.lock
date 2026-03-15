@@ -1297,10 +1297,10 @@ ajv@^8.0.0, ajv@^8.9.0:
     json-schema-traverse "^1.0.0"
     require-from-string "^2.0.2"
 
-amplitude-auto-track@^0.1.0:
+amplitude-auto-tracker@^0.1.0:
   version "0.1.0"
-  resolved "https://registry.yarnpkg.com/amplitude-auto-track/-/amplitude-auto-track-0.1.0.tgz#9941742fca5e7caaf1c05fbce57851b70acc6b83"
-  integrity sha512-/Z3o7t9veHR95PDSXQGUhAWUDkxPIwsU6h0ZNMXQsF/NYqvfPr1Ym0PG4PS79zVvn36dXy+bhMm9bdEFiBnftQ==
+  resolved "https://registry.yarnpkg.com/amplitude-auto-tracker/-/amplitude-auto-tracker-0.1.0.tgz#d40760f7ffa54ea4610a2b956140985dd9d30be6"
+  integrity sha512-/h2omv70NIEV4U4HQvxgaOwCdRAyqXgw/fXZ690CrcmoNihM2lnPz8aXgeMmBgmpK2fQI411+WvnASZaBB6J4A==
   dependencies:
     dotenv "^17.3.1"
     openai "^6.29.0"

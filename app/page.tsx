@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { initAmplitude } from "amplitude-auto-track";
+import { initAmplitude } from "amplitude-auto-tracker";
 import { useAmplitudeEventLog } from "./hooks/useAmplitudeEventLog";
 import { FeaturesSection, EventLogPanel, ActionButtons } from "./components/ui";
 import eventNames from "../lib/event-names.json";
+
+const INSTALL_CMD = "npm install amplitude-auto-tracker";
 
 export default function FeatureIntroPage() {
   const [panelOpen, setPanelOpen] = useState(true);
@@ -18,7 +20,7 @@ export default function FeatureIntroPage() {
   }, []);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText("npm install amplitude-auto-track");
+    navigator.clipboard.writeText(INSTALL_CMD);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -29,7 +31,7 @@ export default function FeatureIntroPage() {
       <nav className="sticky top-0 z-40 border-b border-gray-100 bg-white/80 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <span className="font-mono font-semibold text-gray-900 text-sm">
-            amplitude-auto-track
+            amplitude-auto-tracker
           </span>
           <div className="flex items-center gap-4">
             <a
@@ -41,7 +43,7 @@ export default function FeatureIntroPage() {
               GitHub
             </a>
             <a
-              href="https://www.npmjs.com/package/amplitude-auto-track"
+              href="https://www.npmjs.com/package/amplitude-auto-tracker"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-gray-900 text-sm transition-colors"
@@ -63,7 +65,7 @@ export default function FeatureIntroPage() {
         </div>
 
         <h1 className="text-5xl font-bold text-gray-900 tracking-tight mb-4">
-          amplitude-auto-track
+          amplitude-auto-tracker
         </h1>
         <p className="text-lg text-gray-500 mb-10 break-keep leading-relaxed max-w-xl mx-auto">
           버튼·링크 텍스트만으로 Amplitude 이벤트를 자동 추적합니다.
@@ -71,22 +73,27 @@ export default function FeatureIntroPage() {
           이벤트 이름은 빌드 시 생성, 위치는 DOM에서 자동 유추.
         </p>
 
-        {/* Install command */}
-        <div className="inline-flex items-center gap-3 bg-gray-950 text-gray-100 pl-5 pr-3 py-3 rounded-xl font-mono text-sm mb-8 shadow-lg">
-          <span className="text-gray-500 select-none">$</span>
-          <span>npm install amplitude-auto-track</span>
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="ml-2 text-gray-400 hover:text-white transition-colors px-2 py-1 rounded-md hover:bg-white/10 text-xs cursor-pointer"
-          >
-            {copied ? "✓ copied" : "copy"}
-          </button>
+        {/* Install */}
+        <div className="mb-8">
+          <p className="text-gray-500 text-sm mb-2">
+            Install with your package manager (npm, yarn, pnpm, bun, …)
+          </p>
+          <div className="inline-flex items-center gap-3 bg-gray-950 text-gray-100 pl-5 pr-3 py-3 rounded-xl font-mono text-sm shadow-lg">
+            <span className="text-gray-500 select-none">$</span>
+            <span>{INSTALL_CMD}</span>
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="ml-2 text-gray-400 hover:text-white transition-colors px-2 py-1 rounded-md hover:bg-white/10 text-xs cursor-pointer"
+            >
+              {copied ? "✓ copied" : "copy"}
+            </button>
+          </div>
         </div>
 
         <div className="flex items-center justify-center gap-3">
           <a
-            href="https://www.npmjs.com/package/amplitude-auto-track"
+            href="https://www.npmjs.com/package/amplitude-auto-tracker"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-indigo-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
@@ -113,7 +120,7 @@ export default function FeatureIntroPage() {
             <span className="text-gray-100">{"{ initAmplitude }"}</span>{" "}
             <span className="text-purple-400">from</span>{" "}
             <span className="text-green-400">
-              &apos;amplitude-auto-track&apos;
+              &apos;amplitude-auto-tracker&apos;
             </span>
           </p>
           <p>
@@ -194,7 +201,7 @@ export default function FeatureIntroPage() {
             rel="noopener noreferrer"
             className="text-indigo-500 hover:underline"
           >
-            amplitude-automation
+            amplitude-auto-tracker
           </a>{" "}
           · MIT License
         </p>

@@ -2,7 +2,7 @@
 
 ## 이 저장소는
 
-**[amplitude-auto-track](https://www.npmjs.com/package/amplitude-auto-track)** 패키지의 **데모(실습용) 프로젝트**입니다.
+**[amplitude-auto-tracker](https://www.npmjs.com/package/amplitude-auto-tracker)** 패키지의 **데모(실습용) 프로젝트**입니다.
 
 - 패키지를 Next.js 앱에 넣었을 때 어떻게 동작하는지 보여줍니다.
 - 같은 버튼/링크 텍스트를 여러 섹션에 두어, `location` 자동 유추를 오른쪽 이벤트 로그 패널에서 확인할 수 있습니다.
@@ -22,7 +22,7 @@
 
 ### 빌드 타임 이벤트 이름 생성
 
-- **amplitude-auto-track**가 빌드/생성 시 1회만 OpenAI API를 호출합니다.
+- **amplitude-auto-tracker**가 빌드/생성 시 1회만 OpenAI API를 호출합니다.
 - 결과는 `lib/event-names.json`에 저장되어 git으로 관리됩니다.
 - 같은 텍스트는 모든 유저, 모든 세션에서 항상 동일한 이벤트 이름을 가집니다.
 
@@ -59,11 +59,11 @@
 
 ```
 [빌드 타임]
-yarn generate:events   (또는 npx amplitude-auto-track)
+yarn generate:events   (또는 npx amplitude-auto-tracker)
     ↓
 app/**/*.tsx 스캔 → 클릭 가능한 텍스트만 추출 (<button>, <a>, buttonText 등)
     ↓
-OpenAI API 호출 (1회, 신규 텍스트만, amplitude-auto-track 내부)
+OpenAI API 호출 (1회, 신규 텍스트만, amplitude-auto-tracker 내부)
     ↓
 lib/event-names.json 업데이트 → git 커밋
     { "로그인": "login_clicked", "회원가입": "signup_clicked", ... }
@@ -89,7 +89,7 @@ yarn install
 
 - `next`
 - `@amplitude/analytics-browser`
-- `amplitude-auto-track` (이벤트 이름 생성 + 클릭 추적 로직 포함)
+- `amplitude-auto-tracker` (이벤트 이름 생성 + 클릭 추적 로직 포함)
 
 ## 설정
 
@@ -101,7 +101,7 @@ yarn install
 NEXT_PUBLIC_AMPLITUDE_API_KEY=your_amplitude_api_key
 ```
 
-이벤트 이름 생성을 사용할 경우 (amplitude-auto-track에서 사용):
+이벤트 이름 생성을 사용할 경우 (amplitude-auto-tracker에서 사용):
 
 ```bash
 OPENAI_API_KEY=sk-proj-your_openai_api_key
@@ -109,7 +109,7 @@ OPENAI_API_KEY=sk-proj-your_openai_api_key
 
 ### 2. 이벤트 이름 생성
 
-새로운 버튼/링크 텍스트를 추가했을 때 실행합니다. **amplitude-auto-track**가 클릭 가능한 요소(`<button>`, `<a>`, `buttonText`/`label` 등) 안의 한국어를 추출해 OpenAI로 영문 이벤트 이름을 생성합니다.
+새로운 버튼/링크 텍스트를 추가했을 때 실행합니다. **amplitude-auto-tracker**가 클릭 가능한 요소(`<button>`, `<a>`, `buttonText`/`label` 등) 안의 한국어를 추출해 OpenAI로 영문 이벤트 이름을 생성합니다.
 
 ```bash
 yarn generate:events
@@ -118,20 +118,20 @@ yarn generate:events
 또는:
 
 ```bash
-npx amplitude-auto-track
+npx amplitude-auto-tracker
 ```
 
 생성된 `lib/event-names.json`을 반드시 git에 커밋하세요. 이 파일이 이벤트 이름의 단일 소스입니다.
 
 ### 3. Amplitude 초기화
 
-`app/page.tsx` 또는 `app/layout.tsx`에서 **amplitude-auto-track**의 `initAmplitude`를 호출합니다:
+`app/page.tsx` 또는 `app/layout.tsx`에서 **amplitude-auto-tracker**의 `initAmplitude`를 호출합니다:
 
 ```typescript
 'use client';
 
 import { useEffect } from 'react';
-import { initAmplitude } from 'amplitude-auto-track';
+import { initAmplitude } from 'amplitude-auto-tracker';
 
 export default function Page() {
   useEffect(() => {
@@ -154,7 +154,7 @@ export default function Page() {
 | ---------------------- | -------------------------------------------------------------- |
 | `yarn dev`             | 개발 서버 (Webpack). HMR 안정적.                               |
 | `yarn dev:turbo`       | 개발 서버 (Turbopack).                                         |
-| `yarn generate:events` | `npx amplitude-auto-track` 실행 → `lib/event-names.json` 갱신. |
+| `yarn generate:events` | `npx amplitude-auto-tracker` 실행 → `lib/event-names.json` 갱신. |
 | `yarn build`           | 이벤트 생성 후 Next.js 빌드 (Turbopack).                       |
 | `yarn start`           | 프로덕션 서버 실행.                                            |
 
@@ -187,14 +187,14 @@ export default function Page() {
 <button data-location="pricing_cards" data-section="conversion">로그인</button>
 ```
 
-## 패키지에서 제공하는 함수 (amplitude-auto-track)
+## 패키지에서 제공하는 함수 (amplitude-auto-tracker)
 
 ### `initAmplitude()`
 
 Amplitude를 초기화하고 클릭 추적을 시작합니다. 중복 호출을 자동으로 방지합니다.
 
 ```typescript
-import { initAmplitude } from "amplitude-auto-track";
+import { initAmplitude } from "amplitude-auto-tracker";
 
 initAmplitude();
 ```
@@ -204,7 +204,7 @@ initAmplitude();
 이벤트를 Amplitude로 직접 전송합니다.
 
 ```typescript
-import { handleTrackEvent } from "amplitude-auto-track";
+import { handleTrackEvent } from "amplitude-auto-tracker";
 
 handleTrackEvent("login_clicked", "로그인", {
   button_class: "primary",
@@ -253,5 +253,5 @@ handleTrackEvent("login_clicked", "로그인", {
 
 - **Next.js** 15
 - **Amplitude Analytics Browser** (@amplitude/analytics-browser)
-- **amplitude-auto-track** (클릭 추적 + 빌드 타임 이벤트 이름 생성, 내부적으로 OpenAI 사용)
+- **amplitude-auto-tracker** (클릭 추적 + 빌드 타임 이벤트 이름 생성, 내부적으로 OpenAI 사용)
 - **TypeScript**

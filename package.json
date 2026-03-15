@@ -1,18 +1,18 @@
 {
-  "name": "amplitude-automation",
+  "name": "amplitude-auto-tracker",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "dev:turbo": "next dev --turbopack",
-    "generate:events": "npx amplitude-auto-track",
+    "generate:events": "npx amplitude-auto-tracker",
     "build": "yarn generate:events && next build --turbopack",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^2.36.5",
-    "amplitude-auto-track": "^0.1.0",
+    "amplitude-auto-tracker": "^0.1.0",
     "lucide-react": "^0.548.0",
     "next": "15.5.7",
     "react": "19.1.0",
