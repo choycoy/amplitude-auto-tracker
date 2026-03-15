@@ -9,6 +9,7 @@ export function ActionButtons({ className = "" }: { className?: string }) {
     >
       <a
         href={docsUrl}
+        target="_blank"
         className="text-indigo-600 hover:text-indigo-700 hover:underline text-sm font-medium"
         rel="noopener noreferrer"
       >
