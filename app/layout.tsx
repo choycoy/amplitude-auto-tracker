@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { SITE_TITLE } from "@/lib/constants";
+import { SITE_TITLE, SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
     template: `%s | ${SITE_TITLE}`,
@@ -31,6 +32,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Amplitude Automation" }],
   openGraph: {
     type: "website",
+    url: SITE_URL,
     locale: "ko_KR",
     siteName: SITE_TITLE,
     title: SITE_TITLE,
