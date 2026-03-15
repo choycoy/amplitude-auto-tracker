@@ -3,7 +3,8 @@ export const SITE_TITLE = "Amplitude 자동 추적";
 
 /** Canonical base URL for the site (used in metadata, Open Graph, etc.). */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://amplitude-automation-by-mc.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://amplitude-automation-by-mc.vercel.app";
 
 /** CustomEvent name dispatched when an Amplitude event is tracked (for UI log). */
 export const AMPLITUDE_TRACK_EVENT = "amplitude:track" as const;

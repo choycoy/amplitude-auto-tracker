@@ -194,7 +194,7 @@ export default function FeatureIntroPage() {
             rel="noopener noreferrer"
             className="text-indigo-500 hover:underline"
           >
-            amplitude-automation
+            amplitude-auto-track
           </a>{" "}
           · MIT License
         </p>
