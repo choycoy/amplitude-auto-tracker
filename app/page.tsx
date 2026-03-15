@@ -3,7 +3,11 @@
 import { useState, useEffect } from "react";
 import { initAmplitude } from "amplitude-auto-tracker";
 import { useAmplitudeEventLog } from "./hooks/useAmplitudeEventLog";
-import { FeaturesSection, EventLogPanel, ActionButtons } from "./components/ui";
+import {
+  FeaturesSection,
+  EventLogPanel,
+  ActionButtons,
+} from "./compßonents/ui";
 import eventNames from "../lib/event-names.json";
 
 const INSTALL_CMD = "npm install amplitude-auto-tracker";
