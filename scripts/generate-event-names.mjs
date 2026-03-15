@@ -3,15 +3,18 @@
  * (inside <button>, <a>, or label-like props), translates via OpenAI, writes to
  * lib/event-names.json.
  *
- * Run: node --env-file=.env scripts/generate-event-names.mjs
+ * Run: node scripts/generate-event-names.mjs
  *
  * Existing entries in event-names.json are never overwritten.
  */
 
+import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import OpenAI from 'openai';
+
+dotenv.config();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');

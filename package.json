@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "generate:events": "node --env-file=.env scripts/generate-event-names.mjs",
+    "generate:events": "node scripts/generate-event-names.mjs",
     "build": "yarn generate:events && next build --turbopack",
     "start": "next start",
     "lint": "eslint"
@@ -28,6 +28,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "css-loader": "^6.11.0",
+    "dotenv": "^17.3.1",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
     "html-webpack-plugin": "^5.6.0",
