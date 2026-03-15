@@ -7,13 +7,10 @@
     "generate:events": "node --env-file=.env scripts/generate-event-names.mjs",
     "build": "yarn generate:events && next build --turbopack",
     "start": "next start",
-    "lint": "eslint",
-    "build:figma": "webpack --config webpack.config.js --mode production",
-    "watch:figma": "webpack --config webpack.config.js --mode development --watch"
+    "lint": "eslint"
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^2.0.0",
-    "firebase": "^12.5.0",
     "lucide-react": "^0.548.0",
     "next": "15.5.3",
     "openai": "^6.7.0",
@@ -30,7 +27,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "babel-plugin-jsx-amplitude": "file:./babel-plugin",
     "css-loader": "^6.11.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
