@@ -47,8 +47,8 @@ export function FeaturesSection() {
             중복 버튼 자동 위치 구분
           </h3>
           <p className="text-gray-500 text-sm leading-relaxed mb-3">
-            같은 텍스트의 버튼이 여러 섹션에 있어도 DOM 컨텍스트에서 위치를
-            자동 유추합니다.
+            같은 텍스트의 버튼이 여러 섹션에 있어도 DOM 컨텍스트에서 위치를 자동
+            유추합니다.
           </p>
           <div className="bg-gray-50 rounded-md p-3 text-xs font-mono space-y-1">
             {LOCATION_EXAMPLES.map(({ selector, location }) => (
@@ -81,16 +81,14 @@ export function FeaturesSection() {
 
       <div className="mt-8 bg-amber-50 border border-amber-200 rounded-xl px-6 py-4 flex items-start gap-3">
         <span className="text-amber-500 text-lg mt-0.5">💡</span>
-        <p className="text-amber-800 text-sm">
+        <p className="text-amber-800 text-sm break-keep">
           <span className="font-semibold">데모:</span> 이 페이지의{" "}
           <span className="font-mono bg-amber-100 px-1 rounded">
             &quot;무료 체험 시작&quot;
           </span>{" "}
           버튼은 <strong>hero · pricing · cta</strong> 세 곳에 있습니다. 각각
           클릭하면 오른쪽 패널에서{" "}
-          <span className="font-mono bg-amber-100 px-1 rounded">
-            location
-          </span>{" "}
+          <span className="font-mono bg-amber-100 px-1 rounded">location</span>{" "}
           값이 다르게 자동 유추되는 것을 확인하세요.
         </p>
       </div>
