@@ -55,6 +55,17 @@ const PricingPage = () => {
 
       <CTASection />
 
+      <div className="bg-gray-800 text-white py-3 px-4 text-center text-sm">
+        <a
+          href="https://github.com/choycoy/amplitude-automation"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-indigo-300 hover:text-white underline"
+        >
+          View source on GitHub — amplitude-automation
+        </a>
+      </div>
+
       <Footer />
 
       <EventLogPanel
