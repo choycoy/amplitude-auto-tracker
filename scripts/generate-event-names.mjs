@@ -1,11 +1,11 @@
 /**
- * Build-time script: scans app/**\/*.tsx for Korean text,
- * translates new entries via OpenAI, and writes to lib/event-names.json.
+ * Build-time script: scans app/**\/*.tsx for Korean text that is clickable only
+ * (inside <button>, <a>, or label-like props), translates via OpenAI, writes to
+ * lib/event-names.json.
  *
  * Run: node --env-file=.env scripts/generate-event-names.mjs
  *
- * Existing entries in event-names.json are never overwritten,
- * so manual overrides are safe.
+ * Existing entries in event-names.json are never overwritten.
  */
 
 import fs from 'fs';
@@ -20,22 +20,53 @@ const EVENT_NAMES_PATH = path.join(ROOT, 'lib', 'event-names.json');
 // ── 1. Load existing mappings ──────────────────────────────────────────────
 const existing = JSON.parse(fs.readFileSync(EVENT_NAMES_PATH, 'utf-8'));
 
-// ── 2. Collect Korean text from all TSX files ──────────────────────────────
-function extractKoreanStrings(content) {
-  const results = new Set();
-  const hasKorean = /[\uAC00-\uD7AF]/;
+// ── 2. Collect Korean text only from clickable elements (<button>, <a>) ─────
+const hasKorean = /[\uAC00-\uD7AF]/;
 
-  // JSX text nodes: >Korean text<
-  const jsxText = />([^<{}\n]*[\uAC00-\uD7AF][^<{}\n]*)</g;
+/** Extract Korean-containing text from HTML/JSX inner content (handles nested tags). */
+function extractKoreanFromInner(inner) {
+  const results = new Set();
+  const trimmed = inner.trim();
+  // Single text node (no nested tags) — e.g. <button>회원가입</button>
+  if (trimmed && hasKorean.test(trimmed) && !trimmed.includes('<')) {
+    results.add(trimmed);
+  }
+  // Text nodes: between > and < (nested elements), must contain Korean
+  const textNode = />([^<{}]*[\uAC00-\uD7AF][^<{}]*)</g;
   let m;
-  while ((m = jsxText.exec(content)) !== null) {
+  while ((m = textNode.exec(inner)) !== null) {
+    const t = m[1].trim();
+    if (t && hasKorean.test(t)) results.add(t);
+  }
+  return results;
+}
+
+function extractClickableKoreanStrings(content) {
+  const results = new Set();
+
+  // <button>...</button> — inner content (non-greedy, allows nested elements)
+  const buttonRe = /<button[\s>][^>]*>([\s\S]*?)<\/button>/gi;
+  let m;
+  while ((m = buttonRe.exec(content)) !== null) {
+    for (const t of extractKoreanFromInner(m[1])) results.add(t);
+  }
+
+  // <a ...>...</a>
+  const anchorRe = /<a\s[^>]*>([\s\S]*?)<\/a>/gi;
+  while ((m = anchorRe.exec(content)) !== null) {
+    for (const t of extractKoreanFromInner(m[1])) results.add(t);
+  }
+
+  // JSX props: buttonText="...", label="...", aria-label="..."
+  const labelPropRe = /(?:buttonText|label|aria-label|title)\s*=\s*\{?["'`]([^"'`\n]*[\uAC00-\uD7AF][^"'`\n]*)["'`]/g;
+  while ((m = labelPropRe.exec(content)) !== null) {
     const t = m[1].trim();
     if (t && hasKorean.test(t)) results.add(t);
   }
 
-  // String literals: 'Korean' or "Korean"
-  const strLit = /['"`]([^'"`\n]*[\uAC00-\uD7AF][^'"`\n]*)[`'"]/g;
-  while ((m = strLit.exec(content)) !== null) {
+  // Object literals (e.g. data.ts): buttonText: "시작하기", so dynamic buttons are covered
+  const dataLabelRe = /(?:buttonText|label)\s*:\s*["'`]([^"'`\n]*[\uAC00-\uD7AF][^"'`\n]*)["'`]/g;
+  while ((m = dataLabelRe.exec(content)) !== null) {
     const t = m[1].trim();
     if (t && hasKorean.test(t)) results.add(t);
   }
@@ -52,7 +83,7 @@ function scanDir(dir) {
       for (const t of scanDir(full)) allTexts.add(t);
     } else if (entry.name.endsWith('.tsx') || entry.name.endsWith('.ts')) {
       const content = fs.readFileSync(full, 'utf-8');
-      for (const t of extractKoreanStrings(content)) allTexts.add(t);
+      for (const t of extractClickableKoreanStrings(content)) allTexts.add(t);
     }
   }
   return allTexts;
