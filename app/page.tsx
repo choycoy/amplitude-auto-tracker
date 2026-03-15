@@ -61,7 +61,7 @@ export default function FeatureIntroPage() {
       >
         <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-600 text-xs font-medium px-3 py-1 rounded-full mb-6">
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-          v0.1.0 · MIT
+          v0.1.1 · MIT
         </div>
 
         <h1 className="text-5xl font-bold text-gray-900 tracking-tight mb-4">
