@@ -1,20 +1,9 @@
 {
   "Amplitude 이벤트": "amplitude_event_clicked",
-  "API 참조": "api_reference_clicked",
-  "기능": "features_clicked",
-  "도움말 센터": "help_center_clicked",
   "로그인": "login_clicked",
-  "로드맵": "roadmap_clicked",
-  "무료 체험 시작": "free_trial_started_clicked",
-  "문서": "documentation_clicked",
-  "문의": "contact_clicked",
-  "보안": "security_clicked",
-  "블로그": "blog_clicked",
-  "상태": "status_clicked",
-  "소개": "about_clicked",
+  "무료 체험 시작": "start_free_trial_clicked",
+  "문서 보기": "view_document_clicked",
   "시작하기": "get_started_clicked",
-  "영업팀에 문의": "contact_sales_clicked",
-  "요금": "pricing_clicked",
-  "채용": "jobs_clicked",
+  "영업팀에 문의": "contact_sales_team_clicked",
   "회원가입": "signup_clicked"
 }
