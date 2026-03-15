@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     description:
       "한국어 버튼/링크를 자동으로 추적하고, 빌드 타임에 생성된 이벤트 이름으로 Amplitude에 전송하는 Next.js 라이브러리입니다.",
     images: [
-      { url: "/opengraph-image", width: 1200, height: 630, alt: SITE_TITLE },
+      { url: "/og-image.png", width: 1200, height: 630, alt: SITE_TITLE },
     ],
   },
   twitter: {
@@ -47,11 +47,10 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description:
       "한국어 버튼/링크 자동 추적 · 빌드 타임 이벤트 이름 생성 · Amplitude 전송",
-    images: ["/opengraph-image"],
+    images: ["/og-image.png"],
   },
   icons: {
     icon: [{ url: "/favicon.ico", sizes: "any" }],
-    apple: "/apple-icon",
   },
 };
 
