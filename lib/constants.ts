@@ -1,3 +1,6 @@
+/** Default site title for metadata (title, openGraph, twitter, etc.). */
+export const SITE_TITLE = "Amplitude 자동 추적";
+
 /** CustomEvent name dispatched when an Amplitude event is tracked (for UI log). */
 export const AMPLITUDE_TRACK_EVENT = "amplitude:track" as const;
 
