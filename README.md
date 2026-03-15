@@ -41,6 +41,7 @@
 ```
 
 위치 유추 우선순위 (조상부터 탐색, 수동 지정 시 이보다 우선):
+
 1. 가장 가까운 `<nav>`, `<header>`, `<footer>`, `<main>`, `<aside>`
 2. `id`가 있는 `<section>` (예: `"pricing"`)
 3. `id`가 없는 `<section>` → 페이지 내 순서 기반 (예: `"section_2"`)
@@ -57,7 +58,7 @@
 [빌드 타임]
 yarn generate:events
     ↓
-app/**/*.tsx 스캔 → 한국어 텍스트 추출
+app/**/*.tsx 스캔 → 클릭 가능한 텍스트만 추출 (<button>, <a>, buttonText 등)
     ↓
 OpenAI API 호출 (1회, 신규 텍스트만)
     ↓
@@ -100,7 +101,7 @@ NEXT_PUBLIC_OPENAI_API_KEY=sk-proj-your_openai_api_key
 
 ### 2. 이벤트 이름 생성
 
-새로운 버튼/링크 텍스트를 추가했을 때 실행합니다:
+새로운 버튼/링크 텍스트를 추가했을 때 실행합니다. 스크립트는 **클릭 가능한 요소**(`<button>`, `<a>`, `buttonText`/`label` 프로퍼티) 안의 한국어만 추출합니다.
 
 ```bash
 yarn generate:events
@@ -146,10 +147,10 @@ export default function Page() {
 
 클릭 시 이벤트 속성에 자동으로 포함됩니다. 모두 DOM 구조에서 자동 유추되며, 수동으로 지정하면 그 값이 우선합니다.
 
-| 속성            | 설명           | 자동 유추 | 예시                         |
-| --------------- | -------------- | --------- | ---------------------------- |
+| 속성            | 설명           | 자동 유추                         | 예시                         |
+| --------------- | -------------- | --------------------------------- | ---------------------------- |
 | `data-location` | 페이지 내 위치 | ✅ (nav/header/footer/section 등) | `nav`, `footer`, `section_2` |
-| `data-section`  | 섹션 분류      | ✅ (조상 `<section id="...">`) | `pricing` (해당 section id)  |
+| `data-section`  | 섹션 분류      | ✅ (조상 `<section id="...">`)    | `pricing` (해당 section id)  |
 
 ```jsx
 // location / section 생략 가능 — 시맨틱 태그만으로 자동 유추
