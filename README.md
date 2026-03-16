@@ -26,6 +26,20 @@
 - 결과는 `lib/event-names.json`에 저장되어 git으로 관리됩니다.
 - 같은 텍스트는 모든 유저, 모든 세션에서 항상 동일한 이벤트 이름을 가집니다.
 
+### 동적 버튼 텍스트 (토글)
+
+버튼 라벨이 상태에 따라 바뀌어도 **클릭 순간의 보이는 텍스트**로 이벤트 이름을 매핑합니다:
+
+```jsx
+const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+<button type="button" onClick={() => setIsLoggedIn((prev) => !prev)}>
+  {isLoggedIn ? "로그아웃" : "로그인"}
+</button>;
+// 클릭 시 보이는 텍스트가 "로그인" → login_clicked
+// 클릭 시 보이는 텍스트가 "로그아웃" → logout_clicked
+```
+
 ### 중복 텍스트 자동 위치 태깅
 
 같은 텍스트의 버튼/링크가 여러 위치에 있으면, `data-location`을 직접 붙이지 않아도 **자동으로 DOM 컨텍스트에서 위치를 유추해 삽입**합니다:
@@ -150,13 +164,13 @@ export default function Page() {
 
 ## 스크립트
 
-| 스크립트               | 설명                                                           |
-| ---------------------- | -------------------------------------------------------------- |
-| `yarn dev`             | 개발 서버 (Webpack). HMR 안정적.                               |
-| `yarn dev:turbo`       | 개발 서버 (Turbopack).                                         |
+| 스크립트               | 설명                                                             |
+| ---------------------- | ---------------------------------------------------------------- |
+| `yarn dev`             | 개발 서버 (Webpack). HMR 안정적.                                 |
+| `yarn dev:turbo`       | 개발 서버 (Turbopack).                                           |
 | `yarn generate:events` | `npx amplitude-auto-tracker` 실행 → `lib/event-names.json` 갱신. |
-| `yarn build`           | 이벤트 생성 후 Next.js 빌드 (Turbopack).                       |
-| `yarn start`           | 프로덕션 서버 실행.                                            |
+| `yarn build`           | 이벤트 생성 후 Next.js 빌드 (Turbopack).                         |
+| `yarn start`           | 프로덕션 서버 실행.                                              |
 
 ## 이벤트 이름 수동 오버라이드
 

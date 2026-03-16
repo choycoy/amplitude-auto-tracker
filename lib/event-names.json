@@ -1,5 +1,6 @@
 {
   "Amplitude 이벤트": "amplitude_event_clicked",
+  "로그아웃": "logout_clicked",
   "로그인": "login_clicked",
   "무료 체험 시작": "start_free_trial_clicked",
   "문서 보기": "view_document_clicked",

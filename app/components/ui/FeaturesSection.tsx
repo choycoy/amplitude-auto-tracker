@@ -1,6 +1,6 @@
 "use client";
 
-import { Zap, MapPin, Code2 } from "lucide-react";
+import { Zap, MapPin, Code2, RefreshCw } from "lucide-react";
 
 const locationExamples = [
   { selector: "#hero", location: "hero" },
@@ -25,7 +25,7 @@ export function FeaturesSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
           {/* Card 1 */}
           <div className="bg-white rounded-2xl p-7 border border-gray-200 hover:shadow-md transition-shadow">
             <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center mb-5">
@@ -46,7 +46,31 @@ export function FeaturesSection() {
             </p>
           </div>
 
-          {/* Card 2 — featured */}
+          {/* Card 2 — 동적 버튼 (토글) */}
+          <div className="bg-white rounded-2xl p-7 border border-gray-200 hover:shadow-md transition-shadow">
+            <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center mb-5">
+              <RefreshCw className="w-5 h-5 text-indigo-600" />
+            </div>
+            <h3 className="font-semibold text-gray-900 mb-2 text-[15px]">
+              동적 버튼 텍스트 (토글)
+            </h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              <code className="bg-gray-100 text-indigo-600 px-1.5 py-0.5 rounded text-xs font-mono">
+                &#123;isLoggedIn ? &quot;로그아웃&quot; : &quot;로그인&quot;&#125;
+              </code>{" "}
+              처럼 라벨이 바뀌는 버튼도 클릭 순간의 보이는 텍스트로{" "}
+              <code className="bg-gray-100 text-indigo-600 px-1.5 py-0.5 rounded text-xs font-mono">
+                login_clicked
+              </code>
+              /{" "}
+              <code className="bg-gray-100 text-indigo-600 px-1.5 py-0.5 rounded text-xs font-mono">
+                logout_clicked
+              </code>{" "}
+              를 구분해 전송합니다.
+            </p>
+          </div>
+
+          {/* Card 3 — featured */}
           <div className="bg-white rounded-2xl p-7 ring-2 ring-indigo-500/20 shadow-sm hover:shadow-md transition-shadow">
             <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center mb-5">
               <MapPin className="w-5 h-5 text-indigo-600" />
@@ -71,7 +95,7 @@ export function FeaturesSection() {
             </div>
           </div>
 
-          {/* Card 3 */}
+          {/* Card 4 */}
           <div className="bg-white rounded-2xl p-7 border border-gray-200 hover:shadow-md transition-shadow">
             <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center mb-5">
               <Code2 className="w-5 h-5 text-indigo-600" />
@@ -95,18 +119,22 @@ export function FeaturesSection() {
           <p className="text-amber-800 text-sm break-keep">
             <span className="font-semibold">데모 안내:</span> 이 페이지의{" "}
             <code className="bg-amber-100 px-1 rounded font-mono text-xs">
-              &quot;로그인&quot;
-            </code>
-            ,{" "}
+              &quot;로그인&quot; / &quot;로그아웃&quot;
+            </code>{" "}
+            토글 버튼과{" "}
             <code className="bg-amber-100 px-1 rounded font-mono text-xs">
               &quot;회원가입&quot;
             </code>{" "}
-            버튼은 <strong>demo-a · demo-b</strong> 두 섹션에 있습니다. 각각
-            클릭하면 우측 패널에서{" "}
+            버튼은 <strong>demo-a · demo-b</strong> 두 섹션에 있습니다. 로그인
+            버튼을 클릭하면 라벨이 로그아웃으로 바뀌며, 그때 다시 클릭하면{" "}
+            <code className="bg-amber-100 px-1 rounded font-mono text-xs">
+              logout_clicked
+            </code>
+            로 전송됩니다. 각 섹션별로{" "}
             <code className="bg-amber-100 px-1 rounded font-mono text-xs">
               location
             </code>{" "}
-            값이 다르게 찍히는 것을 확인하세요.
+            값이 다르게 찍히는 것도 우측 패널에서 확인하세요.
           </p>
         </div>
       </div>

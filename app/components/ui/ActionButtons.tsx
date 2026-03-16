@@ -1,7 +1,10 @@
 "use client";
+
+import { useState } from "react";
 import Link from "next/link";
 
 export function ActionButtons({ className = "" }: { className?: string }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const docsUrl = process.env.NEXT_PUBLIC_GITHUB_URL!;
 
   return (
@@ -18,9 +21,10 @@ export function ActionButtons({ className = "" }: { className?: string }) {
       </Link>
       <button
         type="button"
+        onClick={() => setIsLoggedIn((prev) => !prev)}
         className="text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-sm font-medium"
       >
-        로그인
+        {isLoggedIn ? "로그아웃" : "로그인"}
       </button>
       <button
         type="button"
