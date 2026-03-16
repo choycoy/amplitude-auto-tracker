@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Clipboard, Check } from "lucide-react";
 import { initAmplitude } from "amplitude-auto-tracker";
 import { useAmplitudeEventLog } from "./hooks/useAmplitudeEventLog";
 import { FeaturesSection, EventLogPanel, ActionButtons } from "./components/ui";
 import eventNames from "../lib/event-names.json";
 
 const INSTALL_CMD = "npm install amplitude-auto-tracker";
+const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL ?? "https://github.com";
 
 export default function FeatureIntroPage() {
   const [panelOpen, setPanelOpen] = useState(true);
@@ -28,17 +30,17 @@ export default function FeatureIntroPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Nav */}
-      <nav className="sticky top-0 z-40 border-b border-gray-100 bg-white/80 backdrop-blur-sm">
-        <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-          <span className="font-mono font-semibold text-gray-900 text-sm">
+      <nav className="sticky top-0 z-40 border-b border-gray-100 bg-white/90 backdrop-blur-md">
+        <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+          <span className="font-mono font-bold text-gray-900 text-sm tracking-tight">
             amplitude-auto-tracker
           </span>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1">
             <a
-              href={process.env.NEXT_PUBLIC_GITHUB_URL}
+              href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-500 hover:text-gray-900 text-sm transition-colors"
+              className="text-gray-500 hover:text-gray-900 text-sm transition-colors px-3 py-1.5 rounded-md hover:bg-gray-50"
             >
               GitHub
             </a>
@@ -46,7 +48,7 @@ export default function FeatureIntroPage() {
               href="https://www.npmjs.com/package/amplitude-auto-tracker"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-500 hover:text-gray-900 text-sm transition-colors"
+              className="text-gray-500 hover:text-gray-900 text-sm transition-colors px-3 py-1.5 rounded-md hover:bg-gray-50"
             >
               npm
             </a>
@@ -54,90 +56,127 @@ export default function FeatureIntroPage() {
         </div>
       </nav>
 
-      {/* Hero */}
-      <header
-        id="hero"
-        className="max-w-3xl mx-auto px-4 pt-20 pb-16 text-center"
-      >
-        <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-600 text-xs font-medium px-3 py-1 rounded-full mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-          v0.1.2 · MIT
-        </div>
+      {/* Hero — left-aligned, dot-grid backdrop */}
+      <header id="hero" className="relative overflow-hidden border-b border-gray-100">
+        {/* Dot grid */}
+        <div className="dot-grid absolute inset-0 opacity-40" />
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-white to-transparent" />
 
-        <h1 className="text-5xl font-bold text-gray-900 tracking-tight mb-4">
-          amplitude-auto-tracker
-        </h1>
-        <p className="text-lg text-gray-500 mb-10 break-keep leading-relaxed max-w-xl mx-auto">
-          버튼·링크 텍스트만으로 Amplitude 이벤트를 자동 추적합니다.
-          <br />
-          이벤트 이름은 빌드 시 생성, 위치는 DOM에서 자동 유추.
-        </p>
-
-        {/* Install */}
-        <div className="mb-8">
-          <p className="text-gray-500 text-sm mb-2">
-            Install with your package manager (npm, yarn, pnpm, bun, …)
-          </p>
-          <div className="inline-flex items-center gap-3 bg-gray-950 text-gray-100 pl-5 pr-3 py-3 rounded-xl font-mono text-sm shadow-lg">
-            <span className="text-gray-500 select-none">$</span>
-            <span>{INSTALL_CMD}</span>
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="ml-2 text-gray-400 hover:text-white transition-colors px-2 py-1 rounded-md hover:bg-white/10 text-xs cursor-pointer"
+        <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-20">
+          {/* Meta strip */}
+          <div className="animate-slide-up flex items-center gap-3 mb-10 font-mono text-xs text-gray-400 tracking-widest uppercase">
+            <span>Package</span>
+            <span className="h-px w-6 bg-gray-200" />
+            <span className="text-indigo-500 font-semibold">v0.1.2</span>
+            <span className="h-px w-6 bg-gray-200" />
+            <span>MIT</span>
+            <span className="h-px w-6 bg-gray-200" />
+            <a
+              href="https://www.npmjs.com/package/amplitude-auto-tracker"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-700 transition-colors"
             >
-              {copied ? "✓ copied" : "copy"}
-            </button>
+              npm ↗
+            </a>
           </div>
-        </div>
 
-        <div className="flex items-center justify-center gap-3">
-          <a
-            href="https://www.npmjs.com/package/amplitude-auto-tracker"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-indigo-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
-          >
-            View on npm
-          </a>
-          <a
-            href={process.env.NEXT_PUBLIC_GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border border-gray-200 text-gray-700 px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
-          >
-            GitHub
-          </a>
+          {/* Giant title */}
+          <h1 className="animate-slide-up font-mono text-[clamp(2.2rem,5.5vw,4.5rem)] font-bold leading-[1.05] tracking-tight text-gray-950 mb-6">
+            amplitude-
+            <br />
+            auto-tracker
+            <span className="animate-blink text-indigo-500 ml-1">_</span>
+          </h1>
+
+          {/* Description */}
+          <p className="animate-slide-up-delay text-gray-500 text-lg max-w-md mb-10 leading-relaxed break-keep">
+            버튼·링크 텍스트만으로 Amplitude 이벤트를 자동 추적합니다.
+            이벤트 이름은 빌드 시 생성, 위치는 DOM에서 자동 유추.
+          </p>
+
+          {/* Install block */}
+          <div className="animate-slide-up-delay-2 mb-8 max-w-lg">
+            <div className="flex items-stretch bg-gray-950 rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/5">
+              <div className="flex items-center gap-3 px-5 py-3.5 flex-1 font-mono text-sm">
+                <span className="text-indigo-400 select-none flex-shrink-0">$</span>
+                <span className="text-gray-100">{INSTALL_CMD}</span>
+              </div>
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="flex items-center gap-1.5 px-4 text-gray-400 hover:text-white hover:bg-white/10 transition-all border-l border-gray-800 text-xs font-mono cursor-pointer flex-shrink-0"
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-green-400" />
+                    <span className="text-green-400">copied</span>
+                  </>
+                ) : (
+                  <>
+                    <Clipboard className="w-3.5 h-3.5" />
+                    <span>copy</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* CTAs */}
+          <div className="animate-slide-up-delay-2 flex items-center gap-3">
+            <a
+              href="https://www.npmjs.com/package/amplitude-auto-tracker"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gray-950 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors shadow-lg"
+            >
+              View on npm ↗
+            </a>
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border border-gray-200 text-gray-700 px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 hover:border-gray-300 transition-colors"
+            >
+              GitHub
+            </a>
+          </div>
         </div>
       </header>
 
-      {/* Quick start code block */}
-      <section className="max-w-3xl mx-auto px-4 pb-16">
-        <div className="bg-gray-950 rounded-2xl p-6 font-mono text-sm leading-7 overflow-x-auto shadow-xl">
-          <p className="text-gray-500 text-xs font-sans mb-4">Quick start</p>
-          <p>
-            <span className="text-purple-400">import</span>{" "}
-            <span className="text-gray-100">{"{ initAmplitude }"}</span>{" "}
-            <span className="text-purple-400">from</span>{" "}
-            <span className="text-green-400">
-              &apos;amplitude-auto-tracker&apos;
-            </span>
-          </p>
-          <p>
-            <span className="text-purple-400">import</span>{" "}
-            <span className="text-gray-100">eventNames</span>{" "}
-            <span className="text-purple-400">from</span>{" "}
-            <span className="text-green-400">
-              &apos;./lib/event-names.json&apos;
-            </span>
-          </p>
-          <p className="mt-4">
-            <span className="text-blue-400">initAmplitude</span>
-            <span className="text-gray-100">{"({ eventNames })"}</span>
-          </p>
-          <p className="mt-4 text-gray-600 text-xs font-sans">
-            {"// Done. Every button & link click is now tracked automatically."}
-          </p>
+      {/* Quick start — terminal window with chrome */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="bg-gray-950 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/5">
+          {/* Window chrome */}
+          <div className="flex items-center gap-2 px-5 py-3.5 border-b border-gray-800">
+            <span className="w-3 h-3 rounded-full bg-red-500/80" />
+            <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
+            <span className="w-3 h-3 rounded-full bg-green-500/80" />
+            <span className="ml-3 font-mono text-xs text-gray-500">quick-start.ts</span>
+          </div>
+          {/* Code */}
+          <div className="p-6 font-mono text-sm leading-7 overflow-x-auto">
+            <p>
+              <span className="text-purple-400">import</span>{" "}
+              <span className="text-gray-100">{"{ initAmplitude }"}</span>{" "}
+              <span className="text-purple-400">from</span>{" "}
+              <span className="text-green-400">&apos;amplitude-auto-tracker&apos;</span>
+            </p>
+            <p>
+              <span className="text-purple-400">import</span>{" "}
+              <span className="text-gray-100">eventNames</span>{" "}
+              <span className="text-purple-400">from</span>{" "}
+              <span className="text-green-400">&apos;./lib/event-names.json&apos;</span>
+            </p>
+            <p className="mt-4">
+              <span className="text-blue-400">initAmplitude</span>
+              <span className="text-gray-100">{"({ eventNames })"}</span>
+            </p>
+            <p className="mt-4 text-gray-600 text-xs">
+              {"// Done. Every button & link click is now tracked automatically."}
+            </p>
+          </div>
         </div>
       </section>
 
@@ -145,66 +184,78 @@ export default function FeatureIntroPage() {
       <FeaturesSection />
 
       {/* Live Demo */}
-      <section className="max-w-4xl mx-auto px-4 py-16">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">라이브 데모</h2>
-          <p className="text-gray-500 text-sm break-keep max-w-lg mx-auto">
-            같은 텍스트 버튼이라도 섹션에 따라{" "}
-            <code className="bg-gray-100 px-1.5 py-0.5 rounded text-indigo-600 text-xs font-mono">
-              location
-            </code>{" "}
-            이 다르게 찍힙니다. 우측 패널에서 확인해 보세요.
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        {/* Section header */}
+        <div className="flex items-center gap-4 mb-10">
+          <div>
+            <p className="font-mono text-xs text-gray-400 uppercase tracking-widest mb-1">Interactive</p>
+            <h2 className="text-2xl font-bold text-gray-900">라이브 데모</h2>
+          </div>
+          <div className="flex-1 h-px bg-gradient-to-r from-gray-200 to-transparent" />
+          <p className="text-gray-400 text-xs font-mono hidden md:block">
+            같은 버튼 · 다른{" "}
+            <code className="text-indigo-400">location</code>
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
           <section
             id="demo-a"
-            className="border-2 border-dashed border-indigo-200 rounded-2xl p-8 text-center bg-indigo-50/40"
+            className="group relative rounded-2xl p-8 text-center bg-gray-950 overflow-hidden border border-gray-800 hover:border-indigo-500/40 transition-colors"
           >
-            <p className="text-xs font-mono text-indigo-400 mb-1">
+            {/* Glow */}
+            <div className="pointer-events-none absolute -top-16 -right-16 w-48 h-48 bg-indigo-600/10 rounded-full blur-3xl group-hover:bg-indigo-600/20 transition-all" />
+            <p className="relative font-mono text-xs text-indigo-400 mb-1">
               section id=&quot;demo-a&quot;
             </p>
-            <p className="text-sm text-gray-500 mb-5">
+            <p className="relative text-sm text-gray-500 mb-6">
               클릭 →{" "}
-              <code className="font-mono text-indigo-600 text-xs">
+              <code className="font-mono text-indigo-300 text-xs">
                 location: &quot;demo-a&quot;
               </code>
             </p>
-            <ActionButtons />
+            <div className="relative">
+              <ActionButtons />
+            </div>
           </section>
 
           <section
             id="demo-b"
-            className="border-2 border-dashed border-purple-200 rounded-2xl p-8 text-center bg-purple-50/40"
+            className="group relative rounded-2xl p-8 text-center bg-gray-950 overflow-hidden border border-gray-800 hover:border-purple-500/40 transition-colors"
           >
-            <p className="text-xs font-mono text-purple-400 mb-1">
+            {/* Glow */}
+            <div className="pointer-events-none absolute -top-16 -right-16 w-48 h-48 bg-purple-600/10 rounded-full blur-3xl group-hover:bg-purple-600/20 transition-all" />
+            <p className="relative font-mono text-xs text-purple-400 mb-1">
               section id=&quot;demo-b&quot;
             </p>
-            <p className="text-sm text-gray-500 mb-5">
+            <p className="relative text-sm text-gray-500 mb-6">
               클릭 →{" "}
-              <code className="font-mono text-purple-600 text-xs">
+              <code className="font-mono text-purple-300 text-xs">
                 location: &quot;demo-b&quot;
               </code>
             </p>
-            <ActionButtons />
+            <div className="relative">
+              <ActionButtons />
+            </div>
           </section>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-100 py-8 text-center">
-        <p className="text-sm text-gray-400">
+      <footer className="border-t border-gray-100 py-8">
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+          <span className="font-mono text-xs text-gray-400">
+            amplitude-auto-tracker · MIT
+          </span>
           <a
-            href={process.env.NEXT_PUBLIC_GITHUB_URL}
+            href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-indigo-500 hover:underline"
+            className="font-mono text-xs text-gray-400 hover:text-indigo-500 transition-colors"
           >
-            amplitude-auto-tracker
-          </a>{" "}
-          · MIT License
-        </p>
+            GitHub ↗
+          </a>
+        </div>
       </footer>
 
       <EventLogPanel
