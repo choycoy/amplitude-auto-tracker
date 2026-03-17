@@ -1,15 +1,18 @@
 "use client";
 
-import { useState } from "react";
+interface ActionButtonsProps {
+  isLoggedIn: boolean;
+  onToggleLogin: () => void;
+}
 
-export function ActionButtons({ className = "" }: { className?: string }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export function ActionButtons({
+  isLoggedIn,
+  onToggleLogin,
+}: ActionButtonsProps) {
   const docsUrl = process.env.NEXT_PUBLIC_GITHUB_URL!;
 
   return (
-    <div
-      className={`flex flex-wrap items-center justify-center gap-4 ${className}`.trim()}
-    >
+    <div className="flex flex-wrap items-center justify-center gap-4">
       <a
         href={docsUrl}
         target="_blank"
@@ -20,7 +23,7 @@ export function ActionButtons({ className = "" }: { className?: string }) {
       </a>
       <button
         type="button"
-        onClick={() => setIsLoggedIn((prev) => !prev)}
+        onClick={() => setTimeout(onToggleLogin, 0)}
         className="text-gray-300 px-4 py-2 rounded-lg border border-gray-700 hover:bg-gray-800 hover:border-gray-600 text-sm font-medium transition-colors"
       >
         {isLoggedIn ? "로그아웃" : "로그인"}

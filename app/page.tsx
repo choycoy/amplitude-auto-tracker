@@ -8,11 +8,14 @@ import { FeaturesSection, EventLogPanel, ActionButtons } from "./components/ui";
 import eventNames from "../lib/event-names.json";
 
 const INSTALL_CMD = "npm install amplitude-auto-tracker";
-const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL ?? "https://github.com";
+const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL!;
+const NPM_URL = process.env.NEXT_PUBLIC_NPM_URL!;
 
 export default function FeatureIntroPage() {
   const [panelOpen, setPanelOpen] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [isLoggedInA, setIsLoggedInA] = useState(false);
+  const [isLoggedInB, setIsLoggedInB] = useState(false);
   const { eventLog, flashId } = useAmplitudeEventLog();
 
   useEffect(() => {
@@ -45,7 +48,7 @@ export default function FeatureIntroPage() {
               GitHub
             </a>
             <a
-              href="https://www.npmjs.com/package/amplitude-auto-tracker"
+              href={NPM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-gray-900 text-sm transition-colors px-3 py-1.5 rounded-md hover:bg-gray-50"
@@ -57,7 +60,10 @@ export default function FeatureIntroPage() {
       </nav>
 
       {/* Hero — left-aligned, dot-grid backdrop */}
-      <header id="hero" className="relative overflow-hidden border-b border-gray-100">
+      <header
+        id="hero"
+        className="relative overflow-hidden border-b border-gray-100"
+      >
         {/* Dot grid */}
         <div className="dot-grid absolute inset-0 opacity-40" />
         {/* Bottom fade */}
@@ -73,7 +79,7 @@ export default function FeatureIntroPage() {
             <span>MIT</span>
             <span className="h-px w-6 bg-gray-200" />
             <a
-              href="https://www.npmjs.com/package/amplitude-auto-tracker"
+              href={NPM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-gray-700 transition-colors"
@@ -92,15 +98,17 @@ export default function FeatureIntroPage() {
 
           {/* Description */}
           <p className="animate-slide-up-delay text-gray-500 text-lg max-w-md mb-10 leading-relaxed break-keep">
-            버튼·링크 텍스트만으로 Amplitude 이벤트를 자동 추적합니다.
-            이벤트 이름은 빌드 시 생성, 위치는 DOM에서 자동 유추.
+            버튼·링크 텍스트만으로 Amplitude 이벤트를 자동 추적합니다. 이벤트
+            이름은 빌드 시 생성, 위치는 DOM에서 자동 유추.
           </p>
 
           {/* Install block */}
           <div className="animate-slide-up-delay-2 mb-8 max-w-lg">
             <div className="flex items-stretch bg-gray-950 rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/5">
               <div className="flex items-center gap-3 px-5 py-3.5 flex-1 font-mono text-sm">
-                <span className="text-indigo-400 select-none flex-shrink-0">$</span>
+                <span className="text-indigo-400 select-none flex-shrink-0">
+                  $
+                </span>
                 <span className="text-gray-100">{INSTALL_CMD}</span>
               </div>
               <button
@@ -126,7 +134,7 @@ export default function FeatureIntroPage() {
           {/* CTAs */}
           <div className="animate-slide-up-delay-2 flex items-center gap-3">
             <a
-              href="https://www.npmjs.com/package/amplitude-auto-tracker"
+              href={NPM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-gray-950 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors shadow-lg"
@@ -153,7 +161,9 @@ export default function FeatureIntroPage() {
             <span className="w-3 h-3 rounded-full bg-red-500/80" />
             <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
             <span className="w-3 h-3 rounded-full bg-green-500/80" />
-            <span className="ml-3 font-mono text-xs text-gray-500">quick-start.ts</span>
+            <span className="ml-3 font-mono text-xs text-gray-500">
+              quick-start.ts
+            </span>
           </div>
           {/* Code */}
           <div className="p-6 font-mono text-sm leading-7 overflow-x-auto">
@@ -161,20 +171,26 @@ export default function FeatureIntroPage() {
               <span className="text-purple-400">import</span>{" "}
               <span className="text-gray-100">{"{ initAmplitude }"}</span>{" "}
               <span className="text-purple-400">from</span>{" "}
-              <span className="text-green-400">&apos;amplitude-auto-tracker&apos;</span>
+              <span className="text-green-400">
+                &apos;amplitude-auto-tracker&apos;
+              </span>
             </p>
             <p>
               <span className="text-purple-400">import</span>{" "}
               <span className="text-gray-100">eventNames</span>{" "}
               <span className="text-purple-400">from</span>{" "}
-              <span className="text-green-400">&apos;./lib/event-names.json&apos;</span>
+              <span className="text-green-400">
+                &apos;./lib/event-names.json&apos;
+              </span>
             </p>
             <p className="mt-4">
               <span className="text-blue-400">initAmplitude</span>
               <span className="text-gray-100">{"({ eventNames })"}</span>
             </p>
             <p className="mt-4 text-gray-600 text-xs">
-              {"// Done. Every button & link click is now tracked automatically."}
+              {
+                "// Done. Every button & link click is now tracked automatically."
+              }
             </p>
           </div>
         </div>
@@ -188,13 +204,14 @@ export default function FeatureIntroPage() {
         {/* Section header */}
         <div className="flex items-center gap-4 mb-10">
           <div>
-            <p className="font-mono text-xs text-gray-400 uppercase tracking-widest mb-1">Interactive</p>
+            <p className="font-mono text-xs text-gray-400 uppercase tracking-widest mb-1">
+              Interactive
+            </p>
             <h2 className="text-2xl font-bold text-gray-900">라이브 데모</h2>
           </div>
           <div className="flex-1 h-px bg-gradient-to-r from-gray-200 to-transparent" />
           <p className="text-gray-400 text-xs font-mono hidden md:block">
-            같은 버튼 · 다른{" "}
-            <code className="text-indigo-400">location</code>
+            같은 버튼 · 다른 <code className="text-indigo-400">location</code>
           </p>
         </div>
 
@@ -204,19 +221,21 @@ export default function FeatureIntroPage() {
             className="group relative rounded-2xl p-8 text-center bg-gray-950 overflow-hidden border border-gray-800 hover:border-indigo-500/40 transition-colors"
           >
             {/* Glow */}
-            <div className="pointer-events-none absolute -top-16 -right-16 w-48 h-48 bg-indigo-600/10 rounded-full blur-3xl group-hover:bg-indigo-600/20 transition-all" />
-            <p className="relative font-mono text-xs text-indigo-400 mb-1">
+            <div className="absolute -top-16 -right-16 w-48 h-48 bg-indigo-600/10 rounded-full blur-3xl group-hover:bg-indigo-600/20 transition-all" />
+            <p className="font-mono text-xs text-indigo-400 mb-1">
               section id=&quot;demo-a&quot;
             </p>
-            <p className="relative text-sm text-gray-500 mb-6">
+            <p className="text-sm text-gray-500 mb-6">
               클릭 →{" "}
               <code className="font-mono text-indigo-300 text-xs">
                 location: &quot;demo-a&quot;
               </code>
             </p>
-            <div className="relative">
-              <ActionButtons />
-            </div>
+
+            <ActionButtons
+              isLoggedIn={isLoggedInA}
+              onToggleLogin={() => setIsLoggedInA((prev) => !prev)}
+            />
           </section>
 
           <section
@@ -224,19 +243,20 @@ export default function FeatureIntroPage() {
             className="group relative rounded-2xl p-8 text-center bg-gray-950 overflow-hidden border border-gray-800 hover:border-purple-500/40 transition-colors"
           >
             {/* Glow */}
-            <div className="pointer-events-none absolute -top-16 -right-16 w-48 h-48 bg-purple-600/10 rounded-full blur-3xl group-hover:bg-purple-600/20 transition-all" />
-            <p className="relative font-mono text-xs text-purple-400 mb-1">
+            <div className="absolute -top-16 -right-16 w-48 h-48 bg-purple-600/10 rounded-full blur-3xl group-hover:bg-purple-600/20 transition-all" />
+            <p className="font-mono text-xs text-purple-400 mb-1">
               section id=&quot;demo-b&quot;
             </p>
-            <p className="relative text-sm text-gray-500 mb-6">
+            <p className="text-sm text-gray-500 mb-6">
               클릭 →{" "}
               <code className="font-mono text-purple-300 text-xs">
                 location: &quot;demo-b&quot;
               </code>
             </p>
-            <div className="relative">
-              <ActionButtons />
-            </div>
+            <ActionButtons
+              isLoggedIn={isLoggedInB}
+              onToggleLogin={() => setIsLoggedInB((prev) => !prev)}
+            />
           </section>
         </div>
       </section>
